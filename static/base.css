@@ -1,0 +1,73 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgb(245, 245, 245);
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.clear::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+ul > li {
+  list-style: none;
+}
+:root {
+  --header: rgb(236, 65, 65);
+  --hover: rgb(239, 103, 103);
+}
+/* 加载动画样式 */
+.loading {
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--hover);
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s ease infinite;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  float: left;
+}
+.loading::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--hover);
+  position: absolute;
+  left: 1px;
+  top: 4px;
+  border-radius: 50%;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*全局滚动条样式*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bfced08f;
+  border-radius: 5px;
+}
+/*全局滚动条样式结束*/
+/*全局range滑动条样式*/
+input[type="range"] {
+  width: 70px;
+  height: 4px;
+  background-color: rgb(229, 229, 229);
+  filter: hue-rotate(160deg);
+}
