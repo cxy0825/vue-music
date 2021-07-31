@@ -92,11 +92,46 @@ const store = new Vuex.Store({
       state.palyAuther = data.auther;
       state.playIndex = data.index;
       state.playPic = data.pic;
+<<<<<<< HEAD
+    },
+    //播放音乐
+    Xplaysong(state, data) {
+      //正在播放音乐的名字
+      state.playName = data.name;
+      //正在播放音乐的作者
+      state.palyAuther = data.song.artists[0].name;
+      // 正在播放音乐的歌曲封面;
+      state.playPic = data.picUrl;
+      state.playID = data.id;
+      //发送请求
+      instence({
+        method: "get",
+        url: "/song/url",
+        params: {
+          id: data.id,
+          br: data.song.hMusic.bitrate
+        }
+      })
+        .then(res => {
+          res = res.data;
+          state.playUrl = res.data[0].url;
+        })
+        .catch(err => {
+          alert("无法获取歌曲地址请重试");
+        });
+=======
+>>>>>>> e78f96d (test)
     }
   },
   actions: {
     getsongUrl({ commit }, data) {
       commit("getsongUrl", data);
+<<<<<<< HEAD
+    },
+    Xplaysong({ commit }, data) {
+      commit("Xplaysong", data);
+=======
+>>>>>>> e78f96d (test)
     }
   }
 });
