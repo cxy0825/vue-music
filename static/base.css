@@ -60,7 +60,7 @@ ul > li {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #bfced08f;
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
   border-radius: 5px;
 }
 /*全局滚动条样式结束*/

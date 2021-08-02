@@ -99,6 +99,7 @@ export default {
   top: 0;
   z-index: 99999;
   flex-flow: column !important;
+  box-shadow: -5px -4px 20px rgb(207, 207, 207);
 }
 .mylist .title {
   width: 100%;

@@ -15,6 +15,8 @@ import songlist from "../components/songlist.vue";
 import devlist from "../components/devlist.vue";
 //新歌速递组件
 import newsong from "../components/newsong.vue";
+//搜索结果列表
+import searchlist from "../components/searchlist.vue";
 export default new Router({
   routes: [
     {
@@ -41,6 +43,12 @@ export default new Router({
       path: "/newsong",
       name: "newsong",
       component: newsong
+    },
+    {
+      path: "/searchlist/:kw/:type",
+      name: "searchlist",
+      component: searchlist,
+      props: true
     }
   ]
 });

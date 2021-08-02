@@ -5,7 +5,14 @@
         id="header"
         @mousedown="mousedown($event)"
         @mouseup="mouseup($event)"
-      ></div>
+      >
+        <div class="logo">
+          <router-link to="/">
+            <img src="./assets/images/logo.png" alt=""
+          /></router-link>
+        </div>
+        <search></search>
+      </div>
       <div id="main">
         <div class="left">
           <a @click.stop="linkal('al', true)">推荐歌单</a>
@@ -106,7 +113,7 @@ import { mapActions, mapMutations, mapState } from "vuex";
 
 import popup from "./components/popup.vue";
 import mylist from "./components/mylist.vue";
-
+import search from "./components/search.vue";
 export default {
   data() {
     return {
@@ -138,10 +145,10 @@ export default {
     ...mapActions(["getsongUrl"]),
     //拖拽事件
     mousedown(e) {
-      console.log("鼠标点击了");
+      //console.log("鼠标点击了");
     },
     mouseup(e) {
-      console.log("鼠标松开了");
+      //console.log("鼠标松开了");
     },
     //点击play按钮事件
     handleClick() {
@@ -351,7 +358,8 @@ export default {
   },
   components: {
     popup,
-    mylist
+    mylist,
+    search
   }
 };
 </script>
@@ -381,11 +389,29 @@ export default {
   line-height: 60px;
   background-color: var(--header);
 }
+#header .logo {
+  width: 40px;
+  height: 60px;
+  margin-left: 20px;
+  position: relative;
+  float: left;
+}
+#header .logo a {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+#header .logo img {
+  width: 100%;
+  object-fit: cover;
+}
 #main {
   width: 100%;
   display: flex;
   flex: 1;
-
   overflow: hidden;
   position: relative;
 }

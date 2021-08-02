@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="newsong">
     <div class="loading" v-if="loading"></div>
     <div class="list">
@@ -19,38 +18,21 @@
           <div class="al">{{ item.song.album.name }}</div>
           <div class="time">{{ item.song.bMusic.playTime | timeinit }}</div>
         </li>
-=======
-  <div>
-    <div class="loading" v-if="loading"></div>
-    <div class="list">
-      <ul>
-        <li></li>
->>>>>>> e78f96d (test)
       </ul>
     </div>
   </div>
 </template>
 <script>
-<<<<<<< HEAD
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
       loading: true,
-=======
-export default {
-  data() {
-    return {
-      loading: false,
->>>>>>> e78f96d (test)
       songlist: []
     };
   },
   methods: {
-<<<<<<< HEAD
     ...mapActions(["Xplaysong"]),
-=======
->>>>>>> e78f96d (test)
     //获取最新的歌曲
     getnewsong() {
       this.$axios({
@@ -62,17 +44,12 @@ export default {
       }).then(res => {
         res = res.data.result;
         this.songlist = res;
-<<<<<<< HEAD
-        console.log(this.songlist);
         this.loading = false;
-=======
->>>>>>> e78f96d (test)
       });
     }
   },
   mounted() {
     this.getnewsong();
-<<<<<<< HEAD
   },
   filters: {
     timeinit(num) {
@@ -149,9 +126,3 @@ export default {
   color: rgb(154 154 154);
 }
 </style>
-=======
-  }
-};
-</script>
-<style lang="css" scoped></style>
->>>>>>> e78f96d (test)

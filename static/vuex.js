@@ -92,7 +92,6 @@ const store = new Vuex.Store({
       state.palyAuther = data.auther;
       state.playIndex = data.index;
       state.playPic = data.pic;
-<<<<<<< HEAD
     },
     //播放音乐
     Xplaysong(state, data) {
@@ -119,19 +118,14 @@ const store = new Vuex.Store({
         .catch(err => {
           alert("无法获取歌曲地址请重试");
         });
-=======
->>>>>>> e78f96d (test)
     }
   },
   actions: {
     getsongUrl({ commit }, data) {
       commit("getsongUrl", data);
-<<<<<<< HEAD
     },
     Xplaysong({ commit }, data) {
       commit("Xplaysong", data);
-=======
->>>>>>> e78f96d (test)
     }
   }
 });
