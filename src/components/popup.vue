@@ -100,6 +100,9 @@ export default {
           id: id
         }
       }).then(res => {
+        if (res.data.lrc == undefined) {
+          return false;
+        }
         //过滤其他信息，直接获取歌词
         res = res.data.lrc.lyric;
         //按照\n分割成数组

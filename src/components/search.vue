@@ -11,7 +11,7 @@
         v-model="str_search"
         @focus="Focus"
         @blur="Blur"
-        @keypress.enter="search"
+        @keypress.enter="linkto('song', str_search)"
       />
       <div class="fousebox" v-show="focus">
         <ul class="hsearch" v-show="hsearch">
@@ -19,7 +19,7 @@
             v-for="(item, index) in hot_search"
             :key="'hot' + index"
             :class="{ B: index < 3 }"
-            @mousedown="linkto(item.first, 1)"
+            @mousedown="linkto('song', item.first)"
           >
             <span>{{ index + 1 }}</span> {{ item.first }}
           </li>
@@ -29,7 +29,7 @@
           <li
             v-for="(item, i) in key.songs"
             :key="'song' + i"
-            @mousedown="linkto(item.name, 1)"
+            @mousedown="linkto('song', item.name)"
           >
             <div class="item">{{ item.name }} - {{ item.artists[0].name }}</div>
           </li>
@@ -37,7 +37,7 @@
           <li
             v-for="(item, i) in key.artists"
             :key="'artists' + i"
-            @mousedown="linkto(item.name, 100)"
+            @mousedown="linkto('singer', item.name)"
           >
             <div class="item">{{ item.name }}</div>
           </li>
@@ -45,7 +45,7 @@
           <li
             v-for="(item, i) in key.albums"
             :key="'albums' + i"
-            @mousedown="linkto(item.name, 10)"
+            @mousedown="linkto('al', item.name)"
           >
             <div class="item">{{ item.name }} - {{ item.artist.name }}</div>
           </li>
@@ -53,7 +53,7 @@
           <li
             v-for="(item, i) in key.playlists"
             :key="'playlist' + i"
-            @mousedown="linkto(item.name, 1000)"
+            @mousedown="linkto('playlists', item.name)"
           >
             <div class="item">{{ item.name }}</div>
           </li>
@@ -89,10 +89,6 @@ export default {
     Blur() {
       this.focus = false;
     },
-    //搜索
-    search() {
-      console.log(this.str_search.trim());
-    },
     //获取热搜榜
     gethotsearch() {
       this.$axios({
@@ -123,8 +119,8 @@ export default {
       }
     },
     //跳转到搜索列表组件
-    linkto(kw, type) {
-      this.$router.push({ path: "/searchlist" + "/" + kw + "/" + type });
+    linkto(p, kw) {
+      this.$router.push({ path: "/searchlist" + "/" + p + "/" + kw });
     }
   },
   mounted() {

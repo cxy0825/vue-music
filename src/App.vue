@@ -444,6 +444,7 @@ export default {
   display: block;
   width: 83%;
   height: 100%;
+  background-color: rgb(243, 243, 243);
 }
 #main div.right h1 {
   height: 30px;
