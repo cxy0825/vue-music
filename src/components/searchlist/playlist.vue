@@ -22,7 +22,9 @@
       >
         <div class="sn">{{ item.name }}</div>
         <div class="singer">{{ item.ar[0].name }}</div>
-        <div class="time">{{ ((item.l.size / item.l.br) * 8) | timeinit }}</div>
+        <div class="time" v-if="item.l != null">
+          {{ ((item.l.size / item.l.br) * 8) | timeinit }}
+        </div>
       </li>
     </ul>
     <div class="loading" v-if="loading"></div>
@@ -121,10 +123,10 @@ export default {
   color: var(--hover) !important;
 }
 .songUl ul li:hover {
-  background-color: rgb(212, 212, 212);
+  background-color: rgb(240, 241, 242);
 }
 .songUl ul .addcolor {
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(249, 249, 249);
 }
 .songUl ul li div {
   cursor: pointer;

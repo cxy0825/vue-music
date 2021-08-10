@@ -18,7 +18,7 @@ import newsong from "../components/newsong.vue";
 //搜索结果列表
 import searchlist from "../components/searchlist/searchlist.vue";
 import playlist from "../components/searchlist/playlist.vue";
-import singerlist from "../components/searchlist/singerlist.vue";
+import baselist from "../components/public/list.vue";
 export default new Router({
   routes: [
     {
@@ -54,7 +54,9 @@ export default new Router({
       children: [
         //搜索单曲
         { path: "song/:kw", component: playlist, props: true },
-        { path: "singer/:kw", component: singerlist, props: true }
+        { path: "singer/:kw", component: baselist, props: true },
+        { path: "al/:kw", component: baselist, props: true },
+        { path: "playlists/:kw", component: baselist, props: true }
       ]
     }
   ]

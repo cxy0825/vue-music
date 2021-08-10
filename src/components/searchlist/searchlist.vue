@@ -46,7 +46,7 @@ export default {
 <style lang="css" scoped>
 .s {
   padding: 20px 0 10px 10px;
-  height: 100%;
+  background-color: #fff;
 }
 .s .itemsbox {
   width: 100%;

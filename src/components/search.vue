@@ -1,8 +1,8 @@
 <template>
   <div class="searchbox clear">
     <div class="leftbtn">
-      <div class="btn">&lt;</div>
-      <div class="btn">&gt;</div>
+      <div class="btn" @click="back">&lt;</div>
+      <div class="btn" @click="go">&gt;</div>
     </div>
     <div class="search">
       <input
@@ -121,6 +121,14 @@ export default {
     //跳转到搜索列表组件
     linkto(p, kw) {
       this.$router.push({ path: "/searchlist" + "/" + p + "/" + kw });
+    },
+    //向前跳转路由
+    back() {
+      this.$router.go(-1);
+    },
+    //先后跳转瑞友
+    go() {
+      this.$router.go(1);
     }
   },
   mounted() {

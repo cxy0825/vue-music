@@ -427,6 +427,7 @@ export default {
   height: 100%;
   border-right: 1px solid rgb(225, 225, 225);
   overflow: hidden;
+  background-color: #fff;
 }
 #main div.left a {
   width: 100%;
@@ -444,7 +445,7 @@ export default {
   display: block;
   width: 83%;
   height: 100%;
-  background-color: rgb(243, 243, 243);
+  background-color: #fff;
 }
 #main div.right h1 {
   height: 30px;
