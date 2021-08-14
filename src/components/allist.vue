@@ -1,28 +1,5 @@
 <template>
   <div class="songlist">
-    <!-- 歌曲列表 -->
-    <div class="top clear">
-      <div class="pic">
-        <img :src="xxal.coverImgUrl" alt="" />
-      </div>
-      <div class="r">
-        <div class="title">{{ xxal.name }}</div>
-        <div class="btn">
-          <button id="play" @click="playall(playlist)">播放全部</button>
-        </div>
-        <div class="count">
-          <span class="songcount">歌曲：{{ xxal.trackCount | check }}</span>
-          <span class="playcount">播放：{{ xxal.playCount | check }}</span>
-        </div>
-        <div
-          class="read"
-          :style="{ height: open }"
-          @click="open == '40px' ? (open = 'auto') : (open = '40px')"
-        >
-          简介：{{ xxal.description }}
-        </div>
-      </div>
-    </div>
     <div class="bottom">
       <ul>
         <li>
@@ -36,7 +13,7 @@
           v-for="(item, index) in playlist"
           :key="'play' + index"
           @click="
-            getsongUrl({ id: item.id, br: item.br.br }),
+            getsongUrl({ id: item.id, br: item.h.br }),
               (clickI = index),
               getsongxx({
                 name: item.name,
@@ -50,7 +27,9 @@
           <div class="stitle">{{ item.name }}</div>
           <div class="ssinger">{{ item.ar[0].name }}</div>
           <div class="sal">{{ item.al.name }}</div>
-          <div class="stime">{{ item.time | timeinit }}</div>
+          <div class="stime">
+            {{ ((item.h.size / item.h.br) * 8) | timeinit }}
+          </div>
         </li>
       </ul>
     </div>
@@ -64,8 +43,6 @@ export default {
   props: ["id"],
   data() {
     return {
-      xxal: [],
-      playlistId: [],
       playlist: [],
       //简介打开的高度
       open: "40px",
@@ -79,62 +56,23 @@ export default {
     //vuex
     ...mapMutations(["csongUrl", "upplaylist", "getsongxx"]),
     ...mapActions(["getsongUrl"]),
-    //获取歌单详情
+    //获取专辑详情
     getxxal() {
       this.$axios({
         method: "get",
-        url: "/playlist/detail",
+        url: "/album",
         params: { id: this.id }
       })
         .then(res => {
-          res = res.data.playlist;
-          this.xxal = res;
-          //提取结果中的歌曲ids
-          this.playlistId = res.trackIds.map(item => {
-            return item["id"];
-          });
-          //根据获取到ids去查询歌曲
-          this.getsonglist();
+          res = res.data.songs;
+          this.playlist = res;
+          this.list_loading = false;
         })
         .catch(err => {
           alert("获取失败，请稍后再试");
           console.log(err);
         });
     },
-    //获取歌单中的歌曲详情
-    getsonglist() {
-      this.$axios({
-        method: "post",
-        url: "/song/detail?timestamp=" + new Date().getTime() + "",
-        data: {
-          ids: this.playlistId.join(",")
-        }
-      }).then(res => {
-        this.playlist = res.data.songs.map(item => {
-          //依次查找歌曲的码率
-          let br;
-          if (item.h != undefined) {
-            br = item.h;
-          } else if (item.m != undefined) {
-            br = item.m;
-          } else if (item.l != undefined) {
-            br = item.l;
-          }
-          //返回歌曲名字 name； 专辑 al；歌手ar；时间长度码率 h m l
-          return {
-            id: item["id"],
-            name: item["name"],
-            al: item["al"],
-            ar: item["ar"],
-            br: br,
-            time: ((br.size / br.br) * 8).toFixed(0)
-          };
-        });
-        //取消加载动画
-        this.list_loading = false;
-      });
-    },
-
     // 把歌单的列表添加到vuex的playlist中
     playall(list) {
       this.upplaylist(list);

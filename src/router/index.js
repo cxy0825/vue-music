@@ -19,6 +19,8 @@ import newsong from "../components/newsong.vue";
 import searchlist from "../components/searchlist/searchlist.vue";
 import playlist from "../components/searchlist/playlist.vue";
 import baselist from "../components/public/list.vue";
+//专辑列表组件
+import allist from "../components/allist.vue";
 export default new Router({
   routes: [
     {
@@ -58,6 +60,16 @@ export default new Router({
         { path: "al/:kw", component: baselist, props: true },
         { path: "playlists/:kw", component: baselist, props: true }
       ]
+    },
+    {
+      path: "/al/:id",
+      component: allist,
+      props: true
+    },
+    {
+      path: "/playlists/:id",
+      component: songlist,
+      props: true
     }
   ]
 });

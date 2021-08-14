@@ -1,11 +1,12 @@
 <template>
   <div class="l">
+    <div class="loading" v-if="loading"></div>
     <ul>
       <li
         class="item"
         v-for="(item, index) in ids"
         :key="'li' + index"
-        @click="golink()"
+        @click="golink(ids[index])"
       >
         <div class="picbox">
           <img :src="picurl[index]" />
@@ -26,6 +27,7 @@
 <script>
 //储存路径的数组
 let ar_path;
+
 export default {
   data() {
     return {
@@ -33,13 +35,21 @@ export default {
       name: [],
       picurl: [],
       count: [],
-      user: []
+      user: [],
+      loading: true
     };
   },
   props: ["kw"],
   methods: {
     //获取数据
     getData(type, page) {
+      //初始化数组
+      this.ids = [];
+      this.name = [];
+      this.picurl = [];
+      this.count = [];
+      this.user = [];
+      this.loading = true;
       this.$axios({
         method: "get",
         url: "/search",
@@ -49,13 +59,9 @@ export default {
           type: type
         }
       }).then(res => {
-        //初始化数组
-        this.ids = [];
-        this.name = [];
-        this.picurl = [];
-        this.count = [];
-        this.user = [];
+        this.loading = false;
         res = res.data.result;
+        console.log(res);
         //获取结果中的数组
         let type;
         for (let i in res) {
@@ -63,7 +69,6 @@ export default {
             type = i;
           }
         }
-        console.log(res[type]);
         res[type].forEach(item => {
           //歌手
           if (type == "artists") {
@@ -72,11 +77,15 @@ export default {
             this.picurl.push(item.img1v1Url);
           }
           //专辑
-          else if (type == "al") {
+          else if (type == "albums") {
+            this.ids.push(item.id);
+            this.name.push(item.name);
+            this.picurl.push(item.picUrl);
+            this.user.push(item.artist.name);
           }
           //歌单
           else if (type == "playlists") {
-            this.ids.push(item.track.id);
+            this.ids.push(item.id);
             this.name.push(item.name);
             this.count.push(item.trackCount);
             this.picurl.push(item.coverImgUrl);
@@ -90,13 +99,13 @@ export default {
     如果是al就跳转到专辑
     如果是playlists就跳转到歌单
     */
-    golink() {
+    golink(id) {
       if (ar_path[1] == "singer") {
-        this.$router.push({ path: `/singer/${this.kw}` });
+        this.$router.push({ path: `/singer/${id}` });
       } else if (ar_path[1] == "al") {
-        this.$router.push({ path: `/al/${this.kw}` });
+        this.$router.push({ path: `/al/${id}` });
       } else if (ar_path[1] == "playlists") {
-        this.$router.push({ path: `/playlists/${this.kw}` });
+        this.$router.push({ path: `/playlists/${id}` });
       }
     }
   },
@@ -119,10 +128,13 @@ export default {
       let path = n.split("/");
       if (path[2] == "singer") {
         this.getData(100, 1);
+        ar_path[1] = "singer";
       } else if (path[2] == "al") {
         this.getData(10, 1);
+        ar_path[1] = "al";
       } else if (path[2] == "playlists") {
         this.getData(1000, 1);
+        ar_path[1] = "playlists";
       }
     }
   }
