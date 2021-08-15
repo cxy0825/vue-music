@@ -21,6 +21,7 @@ export default {
       clickI: 0,
       items: [
         { name: "单曲", type: "song/" },
+        { name: "歌手", type: "singer/" },
         { name: "专辑", type: "al/" },
         { name: "视频", type: "mv/" },
         { name: "歌单", type: "playlists/" }
