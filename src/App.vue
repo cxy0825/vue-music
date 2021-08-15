@@ -198,6 +198,26 @@ export default {
     //上一首
     back() {
       console.log("上一首");
+      if (this.zt == "随机") {
+        this.onend();
+      } else if (this.zt == "顺序") {
+        let i = this.playIndex - 1;
+        if (i < 0) {
+          i = this.playlist.length - 1;
+        }
+        //获得歌曲的url
+        this.getsongUrl({
+          id: this.playlist[i].id,
+          br: this.playlist[i].br.br
+        });
+        //获得歌曲的信息
+        this.getsongxx({
+          name: this.playlist[i].name,
+          auther: this.playlist[i].ar[0].name,
+          index: i,
+          pic: this.playlist[i].al.picUrl
+        });
+      }
     },
     //下一首
     next() {
